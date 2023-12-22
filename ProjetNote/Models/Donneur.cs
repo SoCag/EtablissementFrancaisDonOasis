@@ -18,4 +18,9 @@ public partial class Donneur
     public DateOnly DateDeNaissance { get; set; }
 
     public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
+
+    public override string ToString()
+    {
+        return Nom + " " + Prenom;
+    }
 }

@@ -44,6 +44,7 @@
             lsbDonneurs.Name = "lsbDonneurs";
             lsbDonneurs.Size = new Size(245, 244);
             lsbDonneurs.TabIndex = 0;
+            lsbDonneurs.SelectedIndexChanged += chargerGrileDonneeDonateur;
             // 
             // TxtRecherche
             // 
@@ -51,6 +52,7 @@
             TxtRecherche.Name = "TxtRecherche";
             TxtRecherche.Size = new Size(245, 27);
             TxtRecherche.TabIndex = 1;
+            TxtRecherche.TextChanged += rechercheDonneurTexteChanged;
             // 
             // label1
             // 

@@ -31,6 +31,9 @@ namespace ProjetNote
             createQuestionnaire();
             // On récupère la première question
             searchQuestion("First");
+
+            //metre à true le bouton suivant des le debut 
+            buttonSuivant.Enabled = true;
         }
 
         // Créer le questionnaire
@@ -348,15 +351,7 @@ namespace ProjetNote
         private void saveChange()
         {
             int idReponse = getCheck();
-
-            // Si l'utilisateur n'a rien coché, on lui demande de cocher
-            if (idReponse == -1)
-            {
-                MessageBox.Show("Veuillez sélectionner votre réponse");
-            }
-            else
-            {
-                try
+            try
                 {
                     string complement = "";
                     // Si la réponse nécessite un complément
@@ -399,25 +394,68 @@ namespace ProjetNote
                 {
                     MessageBox.Show("Erreur à l'enregistrement de la réponse :\n" + ex.Message);
                 }
-            }
         }
 
         private void buttonSuivant_Click(object sender, EventArgs e)
         {
-            // J'enregistre les modifications
-            saveChange();
 
-            // Si non, je passe à la question suivante
-            searchQuestion("Next");
+            // si la question à un complément alors il doit obligatoirement compléter le complement avant de faire suivant
+            if (sousQuestionEnCours.NecessiteComplement && string.IsNullOrEmpty(textComplement.Text) && radioOui.Checked)
+            {
+                MessageBox.Show("Merci de compléter votre réponse avec un complément textuel");
+            }
+            //sinon il peut faire suivant
+            else
+            {
+                int idReponse = getCheck();
+
+                // Si l'utilisateur n'a rien coché, on lui demande de cocher
+                if (idReponse == -1)
+                {
+                    MessageBox.Show("Veuillez sélectionner votre réponse");
+                }
+                else
+                {
+                    // J'enregistre les modifications
+                    saveChange();
+
+                    // Si non, je passe à la question suivante
+
+                    //Si rien n'est selectionner alors je passe à la question suivante 
+
+                    searchQuestion("Next");
+                }
+            }
         }
 
         private void buttonPrecedent_Click(object sender, EventArgs e)
         {
-            // J'enregistre les modifications
-            saveChange();
+            int idReponse = getCheck();
 
-            // Je passe à la question suivante
-            searchQuestion("Previous");
+            // Si l'utilisateur n'a rien coché, on lui demande de cocher
+            if (idReponse == -1)
+            {
+                MessageBox.Show("Veuillez sélectionner votre réponse");
+            }
+            else
+            {
+                // J'enregistre les modifications
+                saveChange();
+
+                // Si non, je passe à la question suivante
+
+                //Si rien n'est selectionner alors je passe à la question suivante 
+
+                searchQuestion("Previous");
+            }
+
+
+
+            //// J'enregistre les modifications
+            //saveChange();
+
+            //// Je passe à la question suivante
+            //searchQuestion("Previous");
         }
 
         private void radioOui_CheckedChanged(object sender, EventArgs e)
