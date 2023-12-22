@@ -13,6 +13,8 @@ public partial class ReponseQuestionnaire
 
     public int IdReponse { get; set; }
 
+    public string? Complement { get; set; }
+
     public virtual Questionnaire IdQuestionnaireNavigation { get; set; } = null!;
 
     public virtual Reponse IdReponseNavigation { get; set; } = null!;

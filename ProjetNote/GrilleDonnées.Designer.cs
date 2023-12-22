@@ -120,7 +120,6 @@
             Controls.Add(dataGridView1);
             Name = "GrilleDonnées";
             Text = "Form1";
-            Load += this.GrilleDonnées_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

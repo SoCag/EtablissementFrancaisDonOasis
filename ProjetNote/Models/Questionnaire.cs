@@ -7,8 +7,6 @@ public partial class Questionnaire
 {
     public int IdQuestionnaire { get; set; }
 
-    public string? Complement { get; set; }
-
     public DateTime DateQuestionnaire { get; set; }
 
     public bool AccordPartage { get; set; }

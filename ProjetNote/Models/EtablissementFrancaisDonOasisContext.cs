@@ -110,9 +110,6 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
             entity.Property(e => e.IdQuestionnaire).HasColumnName("idQuestionnaire");
             entity.Property(e => e.AccordPartage).HasColumnName("accordPartage");
-            entity.Property(e => e.Complement)
-                .IsUnicode(false)
-                .HasColumnName("complement");
             entity.Property(e => e.DateQuestionnaire)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("dateQuestionnaire");
@@ -152,6 +149,9 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
             entity.ToTable("ReponseQuestionnaire");
 
             entity.Property(e => e.IdReponseQuestionnaire).HasColumnName("idReponseQuestionnaire");
+            entity.Property(e => e.Complement)
+                .IsUnicode(false)
+                .HasColumnName("complement");
             entity.Property(e => e.IdQuestionnaire).HasColumnName("idQuestionnaire");
             entity.Property(e => e.IdReponse).HasColumnName("idReponse");
             entity.Property(e => e.IdSousQuestion).HasColumnName("idSousQuestion");
