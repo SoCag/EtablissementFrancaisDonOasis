@@ -52,64 +52,77 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(201, 9);
+            label1.Font = new Font("Dubai", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
+            label1.Location = new Point(176, 9);
             label1.Name = "label1";
-            label1.Size = new Size(103, 25);
+            label1.Size = new Size(146, 45);
             label1.TabIndex = 0;
             label1.Text = "Inscription";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(60, 380);
+            label2.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.MidnightBlue;
+            label2.Location = new Point(60, 382);
             label2.Name = "label2";
-            label2.Size = new Size(139, 20);
+            label2.Size = new Size(151, 29);
             label2.TabIndex = 1;
             label2.Text = "Date de Naissance :";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(266, 62);
+            label3.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.MidnightBlue;
+            label3.Location = new Point(254, 62);
             label3.Name = "label3";
-            label3.Size = new Size(49, 20);
+            label3.Size = new Size(56, 29);
             label3.TabIndex = 2;
             label3.Text = "Nom :";
             // 
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.MidnightBlue;
             label4.Location = new Point(58, 62);
             label4.Name = "label4";
-            label4.Size = new Size(67, 20);
+            label4.Size = new Size(78, 29);
             label4.TabIndex = 3;
             label4.Text = "Prénom :";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(60, 235);
+            label5.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.MidnightBlue;
+            label5.Location = new Point(58, 242);
             label5.Name = "label5";
-            label5.Size = new Size(103, 20);
+            label5.Size = new Size(115, 29);
             label5.TabIndex = 4;
             label5.Text = "Mot de Passe :";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(60, 154);
+            label6.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.MidnightBlue;
+            label6.Location = new Point(58, 154);
             label6.Name = "label6";
-            label6.Size = new Size(101, 20);
+            label6.Size = new Size(112, 29);
             label6.TabIndex = 5;
             label6.Text = "Adresse mail :";
             // 
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.MidnightBlue;
             label7.Location = new Point(60, 310);
             label7.Name = "label7";
-            label7.Size = new Size(103, 20);
+            label7.Size = new Size(116, 29);
             label7.TabIndex = 6;
             label7.Text = "Confirmation :";
             // 
@@ -117,47 +130,49 @@
             // 
             TxtPrenomInscription.Location = new Point(58, 85);
             TxtPrenomInscription.Name = "TxtPrenomInscription";
-            TxtPrenomInscription.Size = new Size(180, 27);
+            TxtPrenomInscription.Size = new Size(169, 27);
             TxtPrenomInscription.TabIndex = 7;
             // 
             // TxtNomInscription
             // 
-            TxtNomInscription.Location = new Point(266, 85);
+            TxtNomInscription.Location = new Point(254, 85);
             TxtNomInscription.Name = "TxtNomInscription";
-            TxtNomInscription.Size = new Size(155, 27);
+            TxtNomInscription.Size = new Size(167, 27);
             TxtNomInscription.TabIndex = 8;
             // 
             // TxtMailInscription
             // 
-            TxtMailInscription.Location = new Point(60, 177);
+            TxtMailInscription.Location = new Point(58, 177);
             TxtMailInscription.Name = "TxtMailInscription";
-            TxtMailInscription.Size = new Size(361, 27);
+            TxtMailInscription.Size = new Size(363, 27);
             TxtMailInscription.TabIndex = 9;
             // 
             // TxtMdpInscription
             // 
-            TxtMdpInscription.Location = new Point(60, 267);
+            TxtMdpInscription.Location = new Point(58, 267);
             TxtMdpInscription.Name = "TxtMdpInscription";
-            TxtMdpInscription.Size = new Size(361, 27);
+            TxtMdpInscription.Size = new Size(363, 27);
             TxtMdpInscription.TabIndex = 10;
             TxtMdpInscription.TextChanged += TxtMdpChanged;
             // 
             // TxtConfirmationInscription
             // 
-            TxtConfirmationInscription.Location = new Point(60, 333);
+            TxtConfirmationInscription.Location = new Point(58, 333);
             TxtConfirmationInscription.Name = "TxtConfirmationInscription";
-            TxtConfirmationInscription.Size = new Size(361, 27);
+            TxtConfirmationInscription.Size = new Size(363, 27);
             TxtConfirmationInscription.TabIndex = 11;
             TxtConfirmationInscription.TextChanged += TxtConfirmationMdpChanged;
             // 
             // BtnInscription
             // 
-            BtnInscription.Location = new Point(64, 643);
+            BtnInscription.BackColor = Color.Gray;
+            BtnInscription.ForeColor = Color.White;
+            BtnInscription.Location = new Point(58, 628);
             BtnInscription.Name = "BtnInscription";
-            BtnInscription.Size = new Size(357, 29);
+            BtnInscription.Size = new Size(363, 50);
             BtnInscription.TabIndex = 13;
-            BtnInscription.Text = "S'inscrire";
-            BtnInscription.UseVisualStyleBackColor = true;
+            BtnInscription.Text = "S'INSCRIRE";
+            BtnInscription.UseVisualStyleBackColor = false;
             BtnInscription.Click += BtnInscription_Click;
             // 
             // pictureBox1
@@ -169,7 +184,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
-            pictureBox1.MouseEnter += this.voirMDP;
+            pictureBox1.MouseEnter += voirMDP;
             pictureBox1.MouseLeave += cacherMDP;
             // 
             // pictureCOnfirmationMDP
@@ -186,7 +201,7 @@
             // 
             // CalendrierDateDeNaissance
             // 
-            CalendrierDateDeNaissance.Location = new Point(118, 409);
+            CalendrierDateDeNaissance.Location = new Point(118, 412);
             CalendrierDateDeNaissance.Name = "CalendrierDateDeNaissance";
             CalendrierDateDeNaissance.TabIndex = 16;
             // 
@@ -194,6 +209,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(505, 703);
             Controls.Add(CalendrierDateDeNaissance);
             Controls.Add(pictureCOnfirmationMDP);
