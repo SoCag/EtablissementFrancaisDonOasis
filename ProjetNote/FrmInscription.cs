@@ -96,9 +96,9 @@ namespace ProjetNote
 
                     //MessageBox.Show("Inscription réussie !");
 
-                    FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
+                    //FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
 
-                    frmQuestionnaire.Show();
+                    //frmQuestionnaire.Show();
 
                     //ferme ce formulaire
                     Close();
