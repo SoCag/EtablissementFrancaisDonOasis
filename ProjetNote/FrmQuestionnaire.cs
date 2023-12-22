@@ -151,7 +151,11 @@ namespace ProjetNote
 
                                     majStatut();
 
-                                    MessageBox.Show("Votre questionnaire a été enregistré ! Son résultat est : ");
+                                    TypeResultat resultat = context.TypeResultats
+                                        .Where(tr => tr.IdTypeResultat == questionnaireEnCours.IdTypeResultat)
+                                        .First();
+
+                                    MessageBox.Show("Votre questionnaire a été enregistré ! Son résultat est : \n" + resultat.Statut.ToString());
                                     // Puis on quitte le formulaire
                                     Close();
                                 }
