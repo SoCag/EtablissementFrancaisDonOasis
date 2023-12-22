@@ -197,7 +197,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoValidate = AutoValidate.EnablePreventFocusChange;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(478, 545);
+            BackgroundImageLayout = ImageLayout.None;
+            ClientSize = new Size(476, 547);
             Controls.Add(BtnInscriptionDonneur);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);

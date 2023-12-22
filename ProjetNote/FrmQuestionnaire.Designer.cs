@@ -49,7 +49,7 @@
             labelQN.BackColor = Color.Transparent;
             labelQN.Font = new Font("Dubai", 13.7999992F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelQN.ForeColor = Color.MidnightBlue;
-            labelQN.Location = new Point(211, 54);
+            labelQN.Location = new Point(228, 60);
             labelQN.Name = "labelQN";
             labelQN.Size = new Size(133, 39);
             labelQN.TabIndex = 0;
@@ -61,7 +61,7 @@
             labelOrdreQuestion.BackColor = Color.Transparent;
             labelOrdreQuestion.Font = new Font("Dubai", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelOrdreQuestion.ForeColor = Color.MidnightBlue;
-            labelOrdreQuestion.Location = new Point(339, 50);
+            labelOrdreQuestion.Location = new Point(353, 58);
             labelOrdreQuestion.Name = "labelOrdreQuestion";
             labelOrdreQuestion.Size = new Size(35, 45);
             labelOrdreQuestion.TabIndex = 1;
@@ -95,13 +95,16 @@
             // 
             // labelQuestion
             // 
+            labelQuestion.AutoEllipsis = true;
             labelQuestion.AutoSize = true;
             labelQuestion.BackColor = Color.Transparent;
             labelQuestion.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelQuestion.ForeColor = Color.MidnightBlue;
-            labelQuestion.Location = new Point(286, 165);
+            labelQuestion.Location = new Point(72, 167);
+            labelQuestion.MaximumSize = new Size(500, 0);
+            labelQuestion.MinimumSize = new Size(500, 0);
             labelQuestion.Name = "labelQuestion";
-            labelQuestion.Size = new Size(77, 29);
+            labelQuestion.Size = new Size(500, 29);
             labelQuestion.TabIndex = 4;
             labelQuestion.Text = "Question";
             labelQuestion.TextAlign = ContentAlignment.MiddleCenter;
@@ -112,9 +115,11 @@
             labelSousQuestion.BackColor = Color.Transparent;
             labelSousQuestion.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSousQuestion.ForeColor = Color.MidnightBlue;
-            labelSousQuestion.Location = new Point(268, 233);
+            labelSousQuestion.Location = new Point(98, 220);
+            labelSousQuestion.MaximumSize = new Size(450, 0);
+            labelSousQuestion.MinimumSize = new Size(450, 0);
             labelSousQuestion.Name = "labelSousQuestion";
-            labelSousQuestion.Size = new Size(115, 29);
+            labelSousQuestion.Size = new Size(450, 29);
             labelSousQuestion.TabIndex = 5;
             labelSousQuestion.Text = "Sous-question";
             labelSousQuestion.TextAlign = ContentAlignment.MiddleCenter;
@@ -125,7 +130,7 @@
             labelOrdreSousQuestion.BackColor = Color.Transparent;
             labelOrdreSousQuestion.Font = new Font("Dubai", 13.7999992F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelOrdreSousQuestion.ForeColor = Color.MidnightBlue;
-            labelOrdreSousQuestion.Location = new Point(372, 55);
+            labelOrdreSousQuestion.Location = new Point(379, 66);
             labelOrdreSousQuestion.Name = "labelOrdreSousQuestion";
             labelOrdreSousQuestion.Size = new Size(32, 39);
             labelOrdreSousQuestion.TabIndex = 9;
@@ -137,9 +142,11 @@
             labelCategorie.BackColor = Color.Transparent;
             labelCategorie.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCategorie.ForeColor = Color.MidnightBlue;
-            labelCategorie.Location = new Point(283, 106);
+            labelCategorie.Location = new Point(71, 115);
+            labelCategorie.MaximumSize = new Size(500, 0);
+            labelCategorie.MinimumSize = new Size(500, 0);
             labelCategorie.Name = "labelCategorie";
-            labelCategorie.Size = new Size(82, 29);
+            labelCategorie.Size = new Size(500, 29);
             labelCategorie.TabIndex = 10;
             labelCategorie.Text = "Catégorie";
             labelCategorie.TextAlign = ContentAlignment.MiddleCenter;
@@ -150,7 +157,7 @@
             radioOui.BackColor = Color.Transparent;
             radioOui.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioOui.ForeColor = Color.MidnightBlue;
-            radioOui.Location = new Point(293, 306);
+            radioOui.Location = new Point(293, 317);
             radioOui.Margin = new Padding(3, 4, 3, 4);
             radioOui.Name = "radioOui";
             radioOui.Size = new Size(59, 33);
@@ -166,7 +173,7 @@
             radioNon.BackColor = Color.Transparent;
             radioNon.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioNon.ForeColor = Color.MidnightBlue;
-            radioNon.Location = new Point(417, 306);
+            radioNon.Location = new Point(417, 317);
             radioNon.Margin = new Padding(3, 4, 3, 4);
             radioNon.Name = "radioNon";
             radioNon.Size = new Size(64, 33);
@@ -181,7 +188,7 @@
             radioSaisPas.BackColor = Color.Transparent;
             radioSaisPas.Font = new Font("Dubai", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioSaisPas.ForeColor = Color.MidnightBlue;
-            radioSaisPas.Location = new Point(111, 306);
+            radioSaisPas.Location = new Point(111, 316);
             radioSaisPas.Margin = new Padding(3, 4, 3, 4);
             radioSaisPas.Name = "radioSaisPas";
             radioSaisPas.Size = new Size(129, 33);
@@ -193,7 +200,7 @@
             // textComplement
             // 
             textComplement.Enabled = false;
-            textComplement.Location = new Point(212, 375);
+            textComplement.Location = new Point(207, 375);
             textComplement.Margin = new Padding(3, 4, 3, 4);
             textComplement.Multiline = true;
             textComplement.Name = "textComplement";
