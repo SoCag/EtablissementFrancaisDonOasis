@@ -19,6 +19,7 @@ public partial class Donneur
 
     public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
 
+    public string NomComplet => $"{Nom} {Prenom}";
     public override string ToString()
     {
         return Nom + " " + Prenom;
