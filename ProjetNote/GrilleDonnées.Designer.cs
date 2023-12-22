@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrilleDonnées));
             dataGridView1 = new DataGridView();
             label1 = new Label();
             label2 = new Label();
@@ -41,10 +42,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 247);
+            dataGridView1.Location = new Point(63, 247);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(589, 152);
+            dataGridView1.Size = new Size(642, 152);
             dataGridView1.TabIndex = 0;
             // 
             // label1
@@ -110,7 +111,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSkyBlue;
-            ClientSize = new Size(624, 411);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(848, 475);
             Controls.Add(labelDate);
             Controls.Add(label3);
             Controls.Add(labelPrenom);
