@@ -19,7 +19,7 @@ namespace ProjetNote
                 {
                     donneurs = context.Donneurs.OrderBy(d => d.Nom).ThenBy(d => d.Prenom).ToList();
                     lsbDonneurs.DataSource = donneurs;
-                    lsbDonneurs.DisplayMember = nameof(Donneur.Nom);
+                    lsbDonneurs.DisplayMember = nameof(Donneur.NomComplet);
                     lsbDonneurs.ValueMember = nameof(Donneur.IdDonneur);
                     //if (idDonneurSelected != 0)
                     //{
