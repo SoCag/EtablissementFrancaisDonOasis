@@ -30,18 +30,18 @@ namespace ProjetNote
                 using (EtablissementFrancaisDonOasisContext db = new EtablissementFrancaisDonOasisContext())
                 {
                     // Recherche l'utilisateur par adresse e-mail
-                    Donneur utilisateur = db.Donneurs.FirstOrDefault(j => j.AdresseEmail.ToLower() == email.ToLower());
+                    Donneur NouveauDonneur = db.Donneurs.FirstOrDefault(d => d.AdresseEmail.ToLower() == email.ToLower());
 
-                    if (utilisateur != null)
+                    if (NouveauDonneur != null)
                     {
                         // Vérifie le mot de passe haché
-                        if (BCrypt.Net.BCrypt.Verify(motDePasse, utilisateur.MotDePasse))
+                        if (BCrypt.Net.BCrypt.Verify(motDePasse, NouveauDonneur.MotDePasse))
                         {
                             //MessageBox.Show(" Renvoie au questionnaire !");
 
-                            //FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
+                            FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
 
-                            //frmQuestionnaire.Show();
+                            frmQuestionnaire.Show();
 
                             //cache ce formulaire
                             this.Hide();
@@ -95,9 +95,9 @@ namespace ProjetNote
                     // Cacher le formulaire principal (de connexion)
                     this.Hide();
 
-                    // Afficher le formulaire Consultation des medecin
-                    //FrmInscription consultation = new Consultation();
-                    //consultation.ShowDialog(); // Utilisez ShowDialog pour bloquer l'accès au formulaire principal jusqu'à ce que le formulaire d'inscription soit fermé
+                    // Afficher le formulaire Consultation des medecins
+                    Consultation consultation = new Consultation();
+                    consultation.ShowDialog(); // Utilisez ShowDialog pour bloquer l'accès au formulaire principal jusqu'à ce que le formulaire d'inscription soit fermé
                     //MessageBox.Show("Renvoyer vers consultation");
                 }
                 else
