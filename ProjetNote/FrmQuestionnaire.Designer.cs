@@ -158,7 +158,8 @@
             radioOui.TabIndex = 11;
             radioOui.TabStop = true;
             radioOui.Text = "Oui";
-            radioOui.UseVisualStyleBackColor = false;
+            radioOui.UseVisualStyleBackColor = true;
+            radioOui.CheckedChanged += radioOui_CheckedChanged;
             // 
             // radioNon
             // 

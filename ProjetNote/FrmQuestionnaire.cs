@@ -95,7 +95,7 @@ namespace ProjetNote
                             questionnaireEnCours.IdTypeResultat = 1;
                         }
                     }
-
+                    context.Entry(questionnaireEnCours).State = EntityState.Modified;
                     context.SaveChanges();
                 }
             }
@@ -119,6 +119,10 @@ namespace ProjetNote
                             questionEnCours = context.Questions
                                 .Where(q => q.Ordre == 1)
                                 .First();
+                            // On récupère sa catégorie
+                            categorie = context.Categories
+                                .Where(c => c.IdCategorie == questionEnCours.IdCategorie)
+                                .First();
                             // On récupère la liste de sous questions
                             sousQuestion = context.SousQuestions
                                 .Where(sq => sq.IdQuestion == questionEnCours.IdQuestion)
@@ -136,7 +140,7 @@ namespace ProjetNote
                             if (sousQuestionEnCours == sousQuestion.Last())
                             {
                                 // On regarde si on est à la dernière question
-                                if(questionEnCours.Ordre == context.Questions.Max(q => q.Ordre))
+                                if (questionEnCours.Ordre == context.Questions.Max(q => q.Ordre))
                                 {
                                     // Alors on récolte l'accord utilisateur// Afficher une boîte de dialogue avec des boutons de choix (Yes/No)
                                     DialogResult choix = MessageBox.Show("Donnez-vous votre accord pour utiliser votre questionnaire à des fins de recherche, d'enseignement et un usage non thérapeutique ?", "Accord", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -146,20 +150,30 @@ namespace ProjetNote
                                     {
                                         // On passe l'accord à vrai
                                         questionnaireEnCours.AccordPartage = true;
+                                        context.Entry(questionnaireEnCours).State = EntityState.Modified;
                                         context.SaveChanges();
                                     }
 
                                     majStatut();
 
-                                    MessageBox.Show("Votre questionnaire a été enregistré ! Son résultat est : ");
+                                    TypeResultat resultat = context.TypeResultats
+                                        .Where(tr => tr.IdTypeResultat == questionnaireEnCours.IdTypeResultat)
+                                        .First();
+
+                                    MessageBox.Show("Votre questionnaire a été enregistré ! Son résultat est : \n" + resultat.Statut.ToString());
                                     // Puis on quitte le formulaire
                                     Close();
                                 }
                                 // Sinon on passe récupère la question suivante
+                                else
                                 {
                                     // On récupère la question suivante
                                     questionEnCours = context.Questions
                                         .Where(q => q.Ordre == questionEnCours.Ordre + 1)
+                                        .First();
+                                    // On récupère sa catégorie
+                                    categorie = context.Categories
+                                        .Where(c => c.IdCategorie == questionEnCours.IdCategorie)
                                         .First();
                                     // On récupère la liste de sous questions
                                     sousQuestion = context.SousQuestions
@@ -188,6 +202,10 @@ namespace ProjetNote
                                 // On récupère la question suivante
                                 questionEnCours = context.Questions
                                     .Where(q => q.Ordre == questionEnCours.Ordre - 1)
+                                    .First();
+                                // On récupère sa catégorie
+                                categorie = context.Categories
+                                    .Where(c => c.IdCategorie == questionEnCours.IdCategorie)
                                     .First();
                                 // On récupère la liste de sous questions
                                 sousQuestion = context.SousQuestions
@@ -235,6 +253,9 @@ namespace ProjetNote
         // Met à jour la vue avec les données en cours
         private void UpdateData()
         {
+            // On reset la textBox
+            textComplement.Text = "";
+
             // Si l'ordre de la question = 1, on bloque le bouton précédent
             if (questionEnCours.Ordre == 1)
             {
@@ -249,7 +270,7 @@ namespace ProjetNote
             labelOrdreQuestion.Text = questionEnCours.Ordre.ToString();
 
             // On met à jour la catégorie
-            labelCategorie.Text = categorie.Categorie1;
+            labelCategorie.Text = categorie.ToString();
 
             // On met à jour la question
             labelQuestion.Text = questionEnCours.Enonce;
@@ -310,11 +331,11 @@ namespace ProjetNote
             {
                 return 1;
             }
-            else if(radioNon.Checked)
+            else if (radioNon.Checked)
             {
                 return 2;
             }
-            else if(radioSaisPas.Checked)
+            else if (radioSaisPas.Checked)
             {
                 return 3;
             }
@@ -329,7 +350,7 @@ namespace ProjetNote
             int idReponse = getCheck();
 
             // Si l'utilisateur n'a rien coché, on lui demande de cocher
-            if(idReponse == -1)
+            if (idReponse == -1)
             {
                 MessageBox.Show("Veuillez sélectionner votre réponse");
             }
@@ -356,6 +377,7 @@ namespace ProjetNote
                             // Je met à jour la réponse
                             reponseQuestionnaireEnCours.IdReponse = idReponse;
                             reponseQuestionnaireEnCours.Complement = complement;
+                            context.Entry(reponseQuestionnaireEnCours).State = EntityState.Modified;
                         }
                         // Sinon je la crée
                         else
@@ -386,7 +408,7 @@ namespace ProjetNote
             saveChange();
 
             // Si non, je passe à la question suivante
-            searchQuestion("Previous");
+            searchQuestion("Next");
         }
 
         private void buttonPrecedent_Click(object sender, EventArgs e)
@@ -395,7 +417,26 @@ namespace ProjetNote
             saveChange();
 
             // Je passe à la question suivante
-            searchQuestion("Next");
+            searchQuestion("Previous");
+        }
+
+        private void radioOui_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioOui.Checked)
+            {
+                if(textComplement.Visible)
+                {
+                    textComplement.Enabled = true;
+                }
+                else
+                {
+                    textComplement.Enabled = false;
+                }
+            }
+            else
+            {
+                textComplement.Enabled = false;
+            }
         }
     }
 }
