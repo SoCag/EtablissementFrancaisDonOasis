@@ -70,7 +70,6 @@
             // buttonSuivant
             // 
             buttonSuivant.BackColor = Color.Gainsboro;
-            buttonSuivant.Enabled = false;
             buttonSuivant.ForeColor = Color.Black;
             buttonSuivant.Location = new Point(250, 489);
             buttonSuivant.Margin = new Padding(3, 4, 3, 4);
