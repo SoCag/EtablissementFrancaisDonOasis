@@ -31,6 +31,8 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
     public virtual DbSet<TypeResultat> TypeResultats { get; set; }
 
+    public virtual DbSet<ViewDataGridQuestionnaire> ViewDataGridQuestionnaires { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=192.168.29.13,1433\\MSSQLSERVER;User ID=sa;Password=erty64%;Database=EtablissementFrancaisDonOasis;TrustServerCertificate=true;");
@@ -209,6 +211,26 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("statut");
+        });
+
+        modelBuilder.Entity<ViewDataGridQuestionnaire>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ViewDataGridQuestionnaire");
+
+            entity.Property(e => e.Complement)
+                .IsUnicode(false)
+                .HasColumnName("complement");
+            entity.Property(e => e.IdQuestionnaire).HasColumnName("idQuestionnaire");
+            entity.Property(e => e.Question)
+                .IsUnicode(false)
+                .HasColumnName("question");
+            entity.Property(e => e.RendImpossible).HasColumnName("rendImpossible");
+            entity.Property(e => e.Reponse)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("reponse");
         });
 
         OnModelCreatingPartial(modelBuilder);
