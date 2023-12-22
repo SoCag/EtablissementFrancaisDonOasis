@@ -62,7 +62,6 @@
             // 
             // buttonSuivant
             // 
-            buttonSuivant.Enabled = false;
             buttonSuivant.Location = new Point(414, 394);
             buttonSuivant.Name = "buttonSuivant";
             buttonSuivant.Size = new Size(116, 44);
@@ -131,6 +130,7 @@
             radioOui.TabStop = true;
             radioOui.Text = "Oui";
             radioOui.UseVisualStyleBackColor = true;
+            radioOui.CheckedChanged += radioOui_CheckedChanged;
             // 
             // radioNon
             // 

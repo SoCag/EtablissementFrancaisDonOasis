@@ -12,4 +12,9 @@ public partial class Categorie
     public string Categorie1 { get; set; } = null!;
 
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
+
+    public override string ToString()
+    {
+        return Ordre + " - " + Categorie1;
+    }
 }
