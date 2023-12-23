@@ -10,17 +10,66 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ProjetNote
 {
     public partial class FrmInscription : Form
     {
-
-        public FrmInscription()
+        FrmPrincipal application;
+        public FrmInscription(FrmPrincipal pApplication)
         {
             InitializeComponent();
+            application = pApplication;
+        }
+
+        private string[] controleSaisie()
+        {
+            string[] resultat = { "1", "" };
+
+            if (String.IsNullOrEmpty(TxtNomInscription.Text))
+            {
+                resultat[0] = "0";
+                resultat[1] += "Veuillez saisir votre nom\n";
+            }
+            if (String.IsNullOrEmpty(TxtPrenomInscription.Text))
+            {
+                resultat[0] = "0";
+                resultat[1] += "Veuillez saisir votre prénom\n";
+            }
+            if (String.IsNullOrEmpty(TxtMdpInscription.Text) || String.IsNullOrEmpty(TxtConfirmationInscription.Text))
+            {
+                resultat[0] = "0";
+                resultat[1] += "Veuillez saisir votre mot de passe\n";
+            }
+            else
+            {
+                if (!(TxtMdpInscription.Text).Equals(TxtConfirmationInscription.Text))
+                {
+                    resultat[0] = "0";
+                    resultat[1] += "Les mots de passe ne correspondent pas\n";
+                }
+            }
+            if (String.IsNullOrEmpty(TxtMailInscription.Text))
+            {
+                resultat[0] = "0";
+                resultat[1] += "Veuillez saisir votre adresse email\n";
+            }
+            else
+            {
+                if (!IsValidEmail(TxtMailInscription.Text))
+                {
+                    resultat[0] = "0";
+                    resultat[1] += "L'adresse email saisie n'est pas valide\n";
+                }
+            }
+            if (!DateTime.TryParseExact(CalendrierDateDeNaissance.SelectionStart.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateDeNaissance))
+            {
+                resultat[0] = "0";
+                resultat[1] += "La date de naissance saisie n'est pas valide\n";
+            }
+
+            return resultat;
         }
 
 
@@ -32,97 +81,63 @@ namespace ProjetNote
             string motDePasse = TxtMdpInscription.Text;
             string confirmationMDP = TxtConfirmationInscription.Text;
             string email = TxtMailInscription.Text;
-            DateTime dateDeNaissance;
             DateOnly DateDeNaissanceSQL;
             string motDePasseHache;
+            DateTime.TryParseExact(CalendrierDateDeNaissance.SelectionStart.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateDeNaissance);
 
-            // Contrôle des informations saisies par l'utilisateur
-            if (!SaisieValideChaine(nom) || !SaisieValideChaine(prenom) || CalendrierDateDeNaissance.SelectionStart == DateTime.MinValue || !SaisieValideChaine(motDePasse) || !SaisieValideChaine(confirmationMDP) || !SaisieValideChaine(email))
+            string[] resultat = controleSaisie();
+
+            if (resultat[0] == "1")
             {
-                MessageBox.Show("Veuillez remplir tous les champs.");
-                return;
-            }
+                // Hachage du mot de passe avant de le stocker dans la base de données
+                motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
 
-            if (!motDePasse.Equals(confirmationMDP))
-            {
-                MessageBox.Show("Les mots de passe ne correspondent pas.");
-                return;
-            }
-
-            if (!IsValidEmail(email))
-            {
-                MessageBox.Show("Adresse email invalide.");
-                return;
-            }
-
-            if (!DateTime.TryParseExact(CalendrierDateDeNaissance.SelectionStart.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateDeNaissance))
-            {
-                MessageBox.Show("Date de naissance invalide.");
-                return;
-            }
-
-            // Hachage du mot de passe avant de le stocker dans la base de données
-            motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
-
-            /*Enregistrement du Donneur */
-            try
-            {
-                using (EtablissementFrancaisDonOasisContext db = new EtablissementFrancaisDonOasisContext())
+                /*Enregistrement du Donneur */
+                try
                 {
-                    // Vérification si l'adresse email existe déjà (en ignorant la casse)
-                    if (db.Donneurs.Any(j => j.AdresseEmail.ToLower() == email.ToLower()))
+                    using (EtablissementFrancaisDonOasisContext db = new EtablissementFrancaisDonOasisContext())
                     {
-                        MessageBox.Show("L'adresse email existe déjà.");
-                        return;
+                        // Vérification si l'adresse email existe déjà (en ignorant la casse)
+                        if (db.Donneurs.Any(j => j.AdresseEmail.ToLower() == email.ToLower()))
+                        {
+                            MessageBox.Show("L'adresse email existe déjà.");
+                            return;
+                        }
+
+                        // Créer un nouveau Donneur
+                        DateDeNaissanceSQL = DateOnly.FromDateTime(dateDeNaissance);
+
+                        Donneur NouveauDonneur = new Donneur
+                        {
+                            Nom = nom,
+                            Prenom = prenom,
+                            MotDePasse = motDePasseHache,
+                            DateDeNaissance = DateDeNaissanceSQL,
+                            AdresseEmail = email,
+                        };
+
+                        // Ajouter l'utilisateur à la base de données
+                        db.Donneurs.Add(NouveauDonneur);
+
+                        // Enregistrer les modifications dans la base de données
+                        db.SaveChanges();
+
+                        FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(application, NouveauDonneur);
+                        frmQuestionnaire.Show();
+
+                        Close();
                     }
 
-                    // Créer un nouveau Donneur
-                    DateDeNaissanceSQL = DateOnly.FromDateTime(dateDeNaissance);
-
-                    Donneur NouveauDonneur = new Donneur
-                    {
-                        Nom = nom,
-                        Prenom = prenom,
-                        MotDePasse = motDePasseHache,
-                        DateDeNaissance = DateDeNaissanceSQL,
-                        AdresseEmail = email,
-                    };
-
-                    // Ajouter l'utilisateur à la base de données
-                    db.Donneurs.Add(NouveauDonneur);
-
-                    // Enregistrer les modifications dans la base de données
-                    db.SaveChanges();
-
-                    //MessageBox.Show("Inscription réussie !");
-
-                    //FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
-
-                    //frmQuestionnaire.Show();
-
-                    //ferme ce formulaire
-                    Close();
                 }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur à l'inscription : " + ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Erreur : " + ex.Message);
+                MessageBox.Show(resultat[1]);
             }
-
-        }
-
-
-        //permet de voir si la chaine est vide ou non
-        private bool SaisieValideChaine(string valeurSasie)
-        {
-            if (string.IsNullOrWhiteSpace(valeurSasie))
-            {
-                return false;
-            }
-
-            else return true;
-
         }
 
         //permet de valider si le string saisie est un email
@@ -177,6 +192,50 @@ namespace ProjetNote
         {
             // Affiche le texte brut (non masqué) lorsque la souris survole l'icône
             TxtConfirmationInscription.PasswordChar = '\0';
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult quitter = MessageBox.Show("Êtes-vous sûr de vouloir quitter l'application ?", "Quitter", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (quitter == DialogResult.Yes)
+            {
+                application.Close();
+            }
+        }
+
+        private void flècheRetourFormPrincipal_Click(object sender, EventArgs e)
+        {
+            //  s'il y a des chemps saisie alors messagebox , sinon retour arrière directement
+            // Vérifier si des champs de saisie sont remplis
+            if (!string.IsNullOrEmpty(TxtNomInscription.Text) ||
+                !string.IsNullOrEmpty(TxtPrenomInscription.Text) ||
+                !string.IsNullOrEmpty(TxtMdpInscription.Text) ||
+                !string.IsNullOrEmpty(TxtConfirmationInscription.Text) ||
+                !string.IsNullOrEmpty(TxtMailInscription.Text))
+            {
+                // Affiche un message d'avertissement
+                DialogResult result = MessageBox.Show("Vous avez des champs de saisie non vides. Êtes-vous sûr de vouloir retourner au formulaire principal?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Retour au formulaire principal sans enregistrer les données
+                    FrmPrincipal formPrincipal = new FrmPrincipal();
+                    formPrincipal.Show();
+                    Close(); // on ferme le form inscription
+                }
+            }
+            else
+            {
+                // Aucun champ de saisie n'est rempli, retour au formulaire principal
+                FrmPrincipal formPrincipal = new FrmPrincipal();
+                formPrincipal.Show();
+                Close(); // on ferme le form inscription
+            }
+
+
+
+
         }
     }
 }

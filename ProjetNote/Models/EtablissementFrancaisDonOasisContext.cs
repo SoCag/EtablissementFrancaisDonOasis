@@ -35,17 +35,17 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=192.168.29.13,1433\\MSSQLSERVER;User ID=sa;Password=erty64%;Database=EtablissementFrancaisDonOasis;TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("Server=Cielphis;User ID=sa;Password=Loup@1996;Database=EtablissementFrancaisDonOasis;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Categorie>(entity =>
         {
-            entity.HasKey(e => e.IdCategorie).HasName("PK__Categori__8A3D240853BDD125");
+            entity.HasKey(e => e.IdCategorie).HasName("PK__Categori__8A3D2408372CDAED");
 
             entity.ToTable("Categorie");
 
-            entity.HasIndex(e => e.Categorie1, "UQ__Categori__11794113B494CB23").IsUnique();
+            entity.HasIndex(e => e.Categorie1, "UQ__Categori__1179411393F1BD62").IsUnique();
 
             entity.Property(e => e.IdCategorie).HasColumnName("idCategorie");
             entity.Property(e => e.Categorie1)
@@ -60,11 +60,11 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Donneur>(entity =>
         {
-            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A04283CAA6F1A0");
+            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A042831FFCD2F7");
 
             entity.ToTable("Donneur");
 
-            entity.HasIndex(e => e.AdresseEmail, "UQ__Donneur__9EB32D54BB69CE2B").IsUnique();
+            entity.HasIndex(e => e.AdresseEmail, "UQ__Donneur__9EB32D548C49B43F").IsUnique();
 
             entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");
             entity.Property(e => e.AdresseEmail)
@@ -87,7 +87,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F4653E2C6F93");
+            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F465E31550D9");
 
             entity.ToTable("Question");
 
@@ -101,12 +101,12 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
             entity.HasOne(d => d.IdCategorieNavigation).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.IdCategorie)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Question__idCate__47DBAE45");
+                .HasConstraintName("FK__Question__idCate__4D94879B");
         });
 
         modelBuilder.Entity<Questionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D20BAC38F0");
+            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2F8B2D82A");
 
             entity.ToTable("Questionnaire");
 
@@ -121,21 +121,21 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
             entity.HasOne(d => d.IdDonneurNavigation).WithMany(p => p.Questionnaires)
                 .HasForeignKey(d => d.IdDonneur)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Questionn__idDon__4222D4EF");
+                .HasConstraintName("FK__Questionn__idDon__4E88ABD4");
 
             entity.HasOne(d => d.IdTypeResultatNavigation).WithMany(p => p.Questionnaires)
                 .HasForeignKey(d => d.IdTypeResultat)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Questionn__idTyp__412EB0B6");
+                .HasConstraintName("FK__Questionn__idTyp__4F7CD00D");
         });
 
         modelBuilder.Entity<Reponse>(entity =>
         {
-            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459EDC23D122");
+            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459E2B7A221D");
 
             entity.ToTable("Reponse");
 
-            entity.HasIndex(e => e.Reponse1, "UQ__Reponse__97B201E7BA1F6060").IsUnique();
+            entity.HasIndex(e => e.Reponse1, "UQ__Reponse__97B201E7C243E6EC").IsUnique();
 
             entity.Property(e => e.IdReponse).HasColumnName("idReponse");
             entity.Property(e => e.Reponse1)
@@ -146,7 +146,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<ReponseQuestionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdReponseQuestionnaire).HasName("PK__ReponseQ__34B35A2393D70B3D");
+            entity.HasKey(e => e.IdReponseQuestionnaire).HasName("PK__ReponseQ__34B35A239C69B76D");
 
             entity.ToTable("ReponseQuestionnaire");
 
@@ -161,22 +161,22 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
             entity.HasOne(d => d.IdQuestionnaireNavigation).WithMany(p => p.ReponseQuestionnaires)
                 .HasForeignKey(d => d.IdQuestionnaire)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReponseQu__idQue__628FA481");
+                .HasConstraintName("FK__ReponseQu__idQue__5070F446");
 
             entity.HasOne(d => d.IdReponseNavigation).WithMany(p => p.ReponseQuestionnaires)
                 .HasForeignKey(d => d.IdReponse)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReponseQu__idRep__6383C8BA");
+                .HasConstraintName("FK__ReponseQu__idRep__5165187F");
 
             entity.HasOne(d => d.IdSousQuestionNavigation).WithMany(p => p.ReponseQuestionnaires)
                 .HasForeignKey(d => d.IdSousQuestion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReponseQu__idSou__619B8048");
+                .HasConstraintName("FK__ReponseQu__idSou__52593CB8");
         });
 
         modelBuilder.Entity<SousQuestion>(entity =>
         {
-            entity.HasKey(e => e.IdSousQuestion).HasName("PK__SousQues__F5B46568C1E8580D");
+            entity.HasKey(e => e.IdSousQuestion).HasName("PK__SousQues__F5B4656840916F42");
 
             entity.ToTable("SousQuestion");
 
@@ -195,16 +195,16 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
             entity.HasOne(d => d.IdQuestionNavigation).WithMany(p => p.SousQuestions)
                 .HasForeignKey(d => d.IdQuestion)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SousQuest__idQue__5EBF139D");
+                .HasConstraintName("FK__SousQuest__idQue__534D60F1");
         });
 
         modelBuilder.Entity<TypeResultat>(entity =>
         {
-            entity.HasKey(e => e.IdTypeResultat).HasName("PK__TypeResu__5A6443E7805C608B");
+            entity.HasKey(e => e.IdTypeResultat).HasName("PK__TypeResu__5A6443E77E0C9CD2");
 
             entity.ToTable("TypeResultat");
 
-            entity.HasIndex(e => e.Statut, "UQ__TypeResu__A8589223C561F858").IsUnique();
+            entity.HasIndex(e => e.Statut, "UQ__TypeResu__A8589223851900CC").IsUnique();
 
             entity.Property(e => e.IdTypeResultat).HasColumnName("idTypeResultat");
             entity.Property(e => e.Statut)
