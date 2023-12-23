@@ -1,6 +1,6 @@
 ﻿namespace ProjetNote
 {
-    partial class Consultation
+    partial class FrmDonneurs
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,29 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Consultation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDonneurs));
             lsbDonneurs = new ListBox();
             TxtRecherche = new TextBox();
             label1 = new Label();
-            label2 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // lsbDonneurs
             // 
             lsbDonneurs.BackColor = SystemColors.Window;
-            lsbDonneurs.ForeColor = SystemColors.WindowText;
+            lsbDonneurs.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lsbDonneurs.ForeColor = Color.RoyalBlue;
             lsbDonneurs.FormattingEnabled = true;
-            lsbDonneurs.Location = new Point(195, 150);
+            lsbDonneurs.ItemHeight = 20;
+            lsbDonneurs.Location = new Point(199, 71);
+            lsbDonneurs.Margin = new Padding(3, 2, 3, 2);
             lsbDonneurs.Name = "lsbDonneurs";
-            lsbDonneurs.Size = new Size(245, 244);
+            lsbDonneurs.Size = new Size(215, 324);
             lsbDonneurs.TabIndex = 0;
-            lsbDonneurs.SelectedIndexChanged += chargerGrileDonneeDonateur;
+            lsbDonneurs.DoubleClick += lsbDonneurs_DoubleClick;
             // 
             // TxtRecherche
             // 
-            TxtRecherche.Location = new Point(195, 63);
+            TxtRecherche.Location = new Point(199, 28);
+            TxtRecherche.Margin = new Padding(3, 2, 3, 2);
             TxtRecherche.Name = "TxtRecherche";
-            TxtRecherche.Size = new Size(245, 27);
+            TxtRecherche.Size = new Size(215, 23);
             TxtRecherche.TabIndex = 1;
             TxtRecherche.TextChanged += rechercheDonneurTexteChanged;
             // 
@@ -58,36 +62,44 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Dubai", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(227, 31);
+            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.MidnightBlue;
+            label1.Location = new Point(214, 9);
             label1.Name = "label1";
-            label1.Size = new Size(189, 29);
+            label1.Size = new Size(180, 17);
             label1.TabIndex = 2;
-            label1.Text = "Rechercher un donneur :";
+            label1.Text = "Rechercher un donneur";
             // 
-            // label2
+            // button1
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Dubai", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label2.Location = new Point(241, 118);
-            label2.Name = "label2";
-            label2.Size = new Size(154, 29);
-            label2.TabIndex = 3;
-            label2.Text = "Liste des donneurs :";
+            button1.BackColor = Color.IndianRed;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(588, 7);
+            button1.Name = "button1";
+            button1.Size = new Size(24, 23);
+            button1.TabIndex = 19;
+            button1.Text = "X";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
-            // Consultation
+            // FrmDonneurs
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(623, 413);
-            Controls.Add(label2);
+            ClientSize = new Size(624, 416);
+            ControlBox = false;
+            Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(TxtRecherche);
             Controls.Add(lsbDonneurs);
-            Name = "Consultation";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 2, 3, 2);
+            MaximizeBox = false;
+            MaximumSize = new Size(640, 455);
+            MinimumSize = new Size(640, 455);
+            Name = "FrmDonneurs";
+            Text = "Liste des donneurs";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -97,6 +109,6 @@
         private ListBox lsbDonneurs;
         private TextBox TxtRecherche;
         private Label label1;
-        private Label label2;
+        private Button button1;
     }
 }

@@ -15,6 +15,7 @@ namespace ProjetNote
 {
     public partial class FrmQuestionnaire : Form
     {
+        FrmPrincipal application;
         Questionnaire questionnaireEnCours;
         Categorie categorie;
         Question questionEnCours;
@@ -23,16 +24,15 @@ namespace ProjetNote
         SousQuestion sousQuestionEnCours;
         ReponseQuestionnaire? reponseQuestionnaireEnCours = null;
         Donneur donneurEnCours;
-        public FrmQuestionnaire(Donneur pDonneurEnCours)
+        public FrmQuestionnaire(FrmPrincipal pApplication, Donneur pDonneurEnCours)
         {
             InitializeComponent();
+            application = pApplication;
             donneurEnCours = pDonneurEnCours;
             // On créer le questionnaire
             createQuestionnaire();
             // On récupère la première question
             searchQuestion("First");
-
-            //metre à true le bouton suivant des le debut 
             buttonSuivant.Enabled = true;
         }
 
@@ -74,29 +74,29 @@ namespace ProjetNote
                         .ToList();
 
                     int nbImpossible = context.ReponseQuestionnaires
-                        .Where(rq => listRendImpossible.Contains(rq.IdSousQuestion) && rq.IdReponse == 1)
+                        .Where(rq => listRendImpossible.Contains(rq.IdSousQuestion) && rq.IdReponse == 1 && rq.IdQuestionnaire == questionnaireEnCours.IdQuestionnaire)
                         .Count();
 
-                    if (nbImpossible > 0)
-                    {
-                        questionnaireEnCours.IdTypeResultat = 2;
-                    }
-                    else
+                    if (nbImpossible == 0)
                     {
                         // Je compte le nombre de "Je sais pas" ou "Oui"
                         int nbAutre = context.ReponseQuestionnaires
-                            .Where(rq => rq.IdReponse == 1 || rq.IdReponse == 3)
+                            .Where(rq => (rq.IdReponse == 1 || rq.IdReponse == 3) && rq.IdQuestionnaire == questionnaireEnCours.IdQuestionnaire)
                             .Count();
 
-                        if (nbAutre > 0)
-                        {
-                            questionnaireEnCours.IdTypeResultat = 3;
-                        }
-                        else
+                        if (nbAutre == 0)
                         {
                             // Sinon le formulaire est confirmé
                             questionnaireEnCours.IdTypeResultat = 1;
                         }
+                        else
+                        {
+                            questionnaireEnCours.IdTypeResultat = 3;
+                        }
+                    }
+                    else
+                    {
+                        questionnaireEnCours.IdTypeResultat = 2;
                     }
                     context.Entry(questionnaireEnCours).State = EntityState.Modified;
                     context.SaveChanges();
@@ -164,8 +164,8 @@ namespace ProjetNote
                                         .First();
 
                                     MessageBox.Show("Votre questionnaire a été enregistré ! Son résultat est : \n" + resultat.Statut.ToString());
-                                    // Puis on quitte le formulaire
-                                    Close();
+                                    // Puis on quitte le formulaire et l'application
+                                    application.Close();
                                 }
                                 // Sinon on passe récupère la question suivante
                                 else
@@ -249,7 +249,7 @@ namespace ProjetNote
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur au chargement du formulaire");
+                MessageBox.Show("Erreur au chargement du formulaire :\n" + ex.Message);
             }
         }
 
@@ -352,59 +352,58 @@ namespace ProjetNote
         {
             int idReponse = getCheck();
             try
+            {
+                string complement = "";
+                // Si la réponse nécessite un complément
+                if (sousQuestionEnCours.NecessiteComplement)
                 {
-                    string complement = "";
-                    // Si la réponse nécessite un complément
-                    if (sousQuestionEnCours.NecessiteComplement)
+                    // Si la réponse est oui, je met ce que l'utilisateur a rentré
+                    if (idReponse == 1)
                     {
-                        // Si la réponse est oui, je met ce que l'utilisateur a rentré
-                        if (idReponse == 1)
-                        {
-                            complement = textComplement.Text;
-                        }
-                    }
-
-                    using (EtablissementFrancaisDonOasisContext context = new EtablissementFrancaisDonOasisContext())
-                    {
-                        // Si la réponse existe, je la met à jour
-                        if (reponseQuestionnaireEnCours != null)
-                        {
-                            // Je met à jour la réponse
-                            reponseQuestionnaireEnCours.IdReponse = idReponse;
-                            reponseQuestionnaireEnCours.Complement = complement;
-                            context.Entry(reponseQuestionnaireEnCours).State = EntityState.Modified;
-                        }
-                        // Sinon je la crée
-                        else
-                        {
-                            reponseQuestionnaireEnCours = new ReponseQuestionnaire
-                            {
-                                IdSousQuestion = sousQuestionEnCours.IdSousQuestion,
-                                IdQuestionnaire = questionnaireEnCours.IdQuestionnaire,
-                                IdReponse = idReponse,
-                                Complement = complement
-                            };
-                            context.Add(reponseQuestionnaireEnCours);
-                        }
-
-                        context.SaveChanges();
+                        complement = textComplement.Text;
                     }
                 }
-                catch (Exception ex)
+
+                using (EtablissementFrancaisDonOasisContext context = new EtablissementFrancaisDonOasisContext())
                 {
-                    MessageBox.Show("Erreur à l'enregistrement de la réponse :\n" + ex.Message);
+                    // Si la réponse existe, je la met à jour
+                    if (reponseQuestionnaireEnCours != null)
+                    {
+                        // Je met à jour la réponse
+                        reponseQuestionnaireEnCours.IdReponse = idReponse;
+                        reponseQuestionnaireEnCours.Complement = complement;
+                        context.Entry(reponseQuestionnaireEnCours).State = EntityState.Modified;
+                    }
+                    // Sinon je la crée
+                    else
+                    {
+                        reponseQuestionnaireEnCours = new ReponseQuestionnaire
+                        {
+                            IdSousQuestion = sousQuestionEnCours.IdSousQuestion,
+                            IdQuestionnaire = questionnaireEnCours.IdQuestionnaire,
+                            IdReponse = idReponse,
+                            Complement = complement
+                        };
+                        context.Add(reponseQuestionnaireEnCours);
+                    }
+
+                    context.SaveChanges();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur à l'enregistrement de la réponse :\n" + ex.Message);
+            }
         }
 
         private void buttonSuivant_Click(object sender, EventArgs e)
         {
-
-            // si la question à un complément alors il doit obligatoirement compléter le complement avant de faire suivant
+            // Si la question à un complément alors il doit obligatoirement compléter le complement avant de faire suivant
             if (sousQuestionEnCours.NecessiteComplement && string.IsNullOrEmpty(textComplement.Text) && radioOui.Checked)
             {
-                MessageBox.Show("Merci de compléter votre réponse avec un complément textuel");
+                MessageBox.Show("Merci de compléter votre réponse");
             }
-            //sinon il peut faire suivant
+            // Sinon il peut faire suivant
             else
             {
                 int idReponse = getCheck();
@@ -412,7 +411,7 @@ namespace ProjetNote
                 // Si l'utilisateur n'a rien coché, on lui demande de cocher
                 if (idReponse == -1)
                 {
-                    MessageBox.Show("Veuillez sélectionner votre réponse");
+                    MessageBox.Show("Veuillez sélectionner une réponse");
                 }
                 else
                 {
@@ -420,9 +419,6 @@ namespace ProjetNote
                     saveChange();
 
                     // Si non, je passe à la question suivante
-
-                    //Si rien n'est selectionner alors je passe à la question suivante 
-
                     searchQuestion("Next");
                 }
             }
@@ -435,7 +431,7 @@ namespace ProjetNote
             // Si l'utilisateur n'a rien coché, on lui demande de cocher
             if (idReponse == -1)
             {
-                MessageBox.Show("Veuillez sélectionner votre réponse");
+                MessageBox.Show("Veuillez sélectionner une réponse");
             }
             else
             {
@@ -443,26 +439,15 @@ namespace ProjetNote
                 saveChange();
 
                 // Si non, je passe à la question suivante
-
-                //Si rien n'est selectionner alors je passe à la question suivante 
-
                 searchQuestion("Previous");
             }
-
-
-
-            //// J'enregistre les modifications
-            //saveChange();
-
-            //// Je passe à la question suivante
-            //searchQuestion("Previous");
         }
 
         private void radioOui_CheckedChanged(object sender, EventArgs e)
         {
-            if(radioOui.Checked)
+            if (radioOui.Checked)
             {
-                if(textComplement.Visible)
+                if (textComplement.Visible)
                 {
                     textComplement.Enabled = true;
                 }
@@ -474,6 +459,46 @@ namespace ProjetNote
             else
             {
                 textComplement.Enabled = false;
+            }
+        }
+
+        private void DeleteQuestionnaire()
+        {
+            try
+            {
+                using (EtablissementFrancaisDonOasisContext context = new EtablissementFrancaisDonOasisContext())
+                {
+                    // Je récupère toutes les réponses au questionnaire
+                    List<ReponseQuestionnaire> listReponse = context.ReponseQuestionnaires
+                        .Where(rq => rq.IdQuestionnaire == questionnaireEnCours.IdQuestionnaire)
+                        .ToList();
+
+                    // Je supprime chaque réponse
+                    foreach(ReponseQuestionnaire reponse in listReponse)
+                    {
+                        context.Remove(reponse);
+                        context.SaveChanges();
+                    }
+
+                    // Puis je supprime le questionnaire
+                    context.Remove(questionnaireEnCours);
+                    context.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite à la suppression :\n" + ex.Message);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult quitter = MessageBox.Show("Êtes-vous sûr de vouloir quitter l'application ?\nVotre questionnaire sera supprimé...", "Quitter", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (quitter == DialogResult.Yes)
+            {
+                DeleteQuestionnaire();
+                application.Close();
             }
         }
     }

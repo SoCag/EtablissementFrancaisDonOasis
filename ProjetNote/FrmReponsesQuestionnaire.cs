@@ -13,12 +13,13 @@ using System.Windows.Forms;
 
 namespace ProjetNote
 {
-    public partial class GrilleDonnées : Form
+    public partial class FrmReponsesQuestionnaire : Form
     {
         Donneur donneurEnCours;
         Questionnaire questionnaireEnCours;
+        TypeResultat resultatQuestionnaire;
         List<ViewDataGridQuestionnaire> listVueEnCours;
-        public GrilleDonnées(Donneur pDonneur)
+        public FrmReponsesQuestionnaire(Donneur pDonneur)
         {
             InitializeComponent();
             donneurEnCours = pDonneur;
@@ -27,28 +28,28 @@ namespace ProjetNote
             DataGridViewTextBoxColumn Question = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Question",
-                Name = "question"
+                Name = "Question"
             };
             dataGVDonneur.Columns.Add(Question);
 
             DataGridViewTextBoxColumn Reponse = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Réponse",
-                Name = "reponse"
+                Name = "Reponse"
             };
             dataGVDonneur.Columns.Add(Reponse);
 
             DataGridViewTextBoxColumn Complement = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Complément",
-                Name = "complement"
+                Name = "Complement"
             };
             dataGVDonneur.Columns.Add(Complement);
 
-            DataGridViewTextBoxColumn rendImpossible = new DataGridViewTextBoxColumn
+            DataGridViewCheckBoxColumn rendImpossible = new DataGridViewCheckBoxColumn
             {
                 HeaderText = "Rend impossible",
-                Name = "rendImpossible"
+                Name = "RendImpossible"
             };
             dataGVDonneur.Columns.Add(rendImpossible);
 
@@ -61,7 +62,12 @@ namespace ProjetNote
 
             foreach (ViewDataGridQuestionnaire view in listVueEnCours)
             {
-                dataGVDonneur.Rows.Add(view);
+                dataGVDonneur.Rows.Add(
+                    view.Question,
+                    view.Reponse,
+                    view.Complement,
+                    view.RendImpossible
+                );
             }
         }
 
@@ -77,11 +83,18 @@ namespace ProjetNote
                         .OrderByDescending(q => q.DateQuestionnaire)
                         .First();
 
+                    // Je récupère le résultat
+                    resultatQuestionnaire = context.TypeResultats
+                        .Where(tr => tr.IdTypeResultat == questionnaireEnCours.IdTypeResultat)
+                        .First();
+
                     listVueEnCours = context.ViewDataGridQuestionnaires
                         .Where(vdg => vdg.IdQuestionnaire == questionnaireEnCours.IdQuestionnaire)
                         .OrderByDescending(vdg => vdg.IdQuestionnaire)
                         .ToList();
                 }
+
+                UpdateData();
             }
             catch (Exception ex)
             {
@@ -95,6 +108,8 @@ namespace ProjetNote
             labelPrenom.Text = donneurEnCours.Prenom;
             labelDate.Text = donneurEnCours.DateDeNaissance.ToShortDateString();
             labelAdresseMail.Text = donneurEnCours.AdresseEmail;
+            labelDateQuestionnaire.Text = questionnaireEnCours.DateQuestionnaire.ToShortDateString();
+            labelResultat.Text = resultatQuestionnaire.Statut;
         }
     }
 }

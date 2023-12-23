@@ -9,75 +9,70 @@ namespace ProjetNote
             InitializeComponent();
         }
 
-        private void FrmPrincipal_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void BtnConnecterDonneur_Click(object sender, EventArgs e)
         {
             string email = TxtEmailDonneur.Text;
             string motDePasse = TxtMDPDonneur.Text;
 
-            if (String.IsNullOrWhiteSpace(email) || String.IsNullOrWhiteSpace(motDePasse))
+            if (!String.IsNullOrWhiteSpace(email))
             {
-                MessageBox.Show("veuilliez remplir tout les champs");
-                return;
-            }
-            try
-            {
-                using (EtablissementFrancaisDonOasisContext db = new EtablissementFrancaisDonOasisContext())
+                if (!String.IsNullOrEmpty(motDePasse))
                 {
-                    // Recherche l'utilisateur par adresse e-mail
-                    Donneur NouveauDonneur = db.Donneurs.FirstOrDefault(d => d.AdresseEmail.ToLower() == email.ToLower());
-
-                    if (NouveauDonneur != null)
+                    try
                     {
-                        // Vérifie le mot de passe haché
-                        if (BCrypt.Net.BCrypt.Verify(motDePasse, NouveauDonneur.MotDePasse))
+                        using (EtablissementFrancaisDonOasisContext db = new EtablissementFrancaisDonOasisContext())
                         {
-                            //MessageBox.Show(" Renvoie au questionnaire !");
+                            // Recherche l'utilisateur par adresse e-mail
+                            Donneur NouveauDonneur = db.Donneurs.FirstOrDefault(d => d.AdresseEmail.ToLower() == email.ToLower());
 
-                            FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(NouveauDonneur);
+                            if (NouveauDonneur != null)
+                            {
+                                // Vérifie le mot de passe haché
+                                if (BCrypt.Net.BCrypt.Verify(motDePasse, NouveauDonneur.MotDePasse))
+                                {
+                                    FrmQuestionnaire frmQuestionnaire = new FrmQuestionnaire(this, NouveauDonneur);
+                                    frmQuestionnaire.Show();
 
-                            frmQuestionnaire.Show();
+                                    // On cache ce formulaire (On ne peut pas le fermer il s'agit de la vue principale)
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Mot de passe incorrect.");
+                                    return;
+                                }
 
-                            //cache ce formulaire
-                            this.Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Aucun compte trouvé avec cet adresse email.\nVeuillez vous inscrire.");
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show("Mot de passe est incorrect.");
-                            return;
-                        }
-
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Aucun compte trouvé avec cet email, veuilliez vous inscrire");
-                        return;
+                        MessageBox.Show("Erreur à la connexion : " + ex.Message);
                     }
-
                 }
-
+                else
+                {
+                    MessageBox.Show("Veuillez renseigner votre mot de passe");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Erreur : " + ex.Message);
+                MessageBox.Show("Veuillez renseigner votre adresse email");
             }
-
-
         }
 
         private void BtnInscriptionDonneur_Click(object sender, EventArgs e)
         {
-            // Cacher le formulaire principal (de connexion)
-            this.Hide();
+            // Affiche le formulaire d'inscription
+            FrmInscription formInscription = new FrmInscription(this);
+            formInscription.Show();
 
-            // Afficher le formulaire d'inscription
-            FrmInscription formInscription = new FrmInscription();
-            formInscription.ShowDialog(); // Utilisez ShowDialog pour bloquer l'accès au formulaire principal jusqu'à ce que le formulaire d'inscription soit fermé
+            // Cache le formulaire principal
+            this.Hide();
         }
 
         private void BtnConnecterMedecin_Click(object sender, EventArgs e)
@@ -85,20 +80,18 @@ namespace ProjetNote
             string MdpMedecin = "Medecin@01";
             string MdpMedecinSaisie = TxtMDPMedecin.Text;
 
-            // si quelque choise est saisie dans le champs mot de passe medecin TxtMDPMedecin
-            if (!string.IsNullOrWhiteSpace(MdpMedecinSaisie))
+            // Si quelque choise est saisie dans le champs mot de passe medecin TxtMDPMedecin
+            if (!string.IsNullOrEmpty(MdpMedecinSaisie))
             {
-                //verification du mot de passe avant de se connecter et renvoyer vers le form Consultation
+                // Vérification du mot de passe avant de se connecter et renvoyer vers le form Consultation
                 if (MdpMedecin == MdpMedecinSaisie)
                 {
-                    /*renvoie vers le fom Consultation */
-                    // Cacher le formulaire principal (de connexion)
-                    this.Hide();
-
                     // Afficher le formulaire Consultation des medecins
-                    Consultation consultation = new Consultation();
-                    consultation.ShowDialog(); // Utilisez ShowDialog pour bloquer l'accès au formulaire principal jusqu'à ce que le formulaire d'inscription soit fermé
-                    //MessageBox.Show("Renvoyer vers consultation");
+                    FrmDonneurs consultation = new FrmDonneurs(this);
+                    consultation.Show();
+
+                    // Cache le formulaire principal
+                    this.Hide();
                 }
                 else
                 {
@@ -135,7 +128,6 @@ namespace ProjetNote
             // Afficher le texte brut (non masqué) lorsque la souris survole l'icône
             TxtMDPDonneur.PasswordChar = '\0';
         }
-        
 
         private void cacherMDPMedecin(object sender, EventArgs e)
         {
