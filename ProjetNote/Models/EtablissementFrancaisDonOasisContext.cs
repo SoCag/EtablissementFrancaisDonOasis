@@ -35,17 +35,17 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-N696JIM\\SQLEXPRESS;User ID=sa;Password=Ryanfatsuzeb267*;Database=EtablissementFrancaisDonOasis;TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("Server=Cielphis;User ID=sa;Password=Loup@1996;Database=EtablissementFrancaisDonOasis;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Categorie>(entity =>
         {
-            entity.HasKey(e => e.IdCategorie).HasName("PK__Categori__8A3D24089477ED66");
+            entity.HasKey(e => e.IdCategorie).HasName("PK__Categori__8A3D2408372CDAED");
 
             entity.ToTable("Categorie");
 
-            entity.HasIndex(e => e.Categorie1, "UQ__Categori__11794113F525E30A").IsUnique();
+            entity.HasIndex(e => e.Categorie1, "UQ__Categori__1179411393F1BD62").IsUnique();
 
             entity.Property(e => e.IdCategorie).HasColumnName("idCategorie");
             entity.Property(e => e.Categorie1)
@@ -60,11 +60,11 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Donneur>(entity =>
         {
-            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A0428386C3AA1E");
+            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A042831FFCD2F7");
 
             entity.ToTable("Donneur");
 
-            entity.HasIndex(e => e.AdresseEmail, "UQ__Donneur__9EB32D5400710023").IsUnique();
+            entity.HasIndex(e => e.AdresseEmail, "UQ__Donneur__9EB32D548C49B43F").IsUnique();
 
             entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");
             entity.Property(e => e.AdresseEmail)
@@ -87,7 +87,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F465D477EDBC");
+            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F465E31550D9");
 
             entity.ToTable("Question");
 
@@ -106,7 +106,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Questionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2A98E3B6A");
+            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2F8B2D82A");
 
             entity.ToTable("Questionnaire");
 
@@ -131,11 +131,11 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<Reponse>(entity =>
         {
-            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459EE9903AD1");
+            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459E2B7A221D");
 
             entity.ToTable("Reponse");
 
-            entity.HasIndex(e => e.Reponse1, "UQ__Reponse__97B201E736284000").IsUnique();
+            entity.HasIndex(e => e.Reponse1, "UQ__Reponse__97B201E7C243E6EC").IsUnique();
 
             entity.Property(e => e.IdReponse).HasColumnName("idReponse");
             entity.Property(e => e.Reponse1)
@@ -146,7 +146,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<ReponseQuestionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdReponseQuestionnaire).HasName("PK__ReponseQ__34B35A23DE341CF9");
+            entity.HasKey(e => e.IdReponseQuestionnaire).HasName("PK__ReponseQ__34B35A239C69B76D");
 
             entity.ToTable("ReponseQuestionnaire");
 
@@ -176,7 +176,7 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<SousQuestion>(entity =>
         {
-            entity.HasKey(e => e.IdSousQuestion).HasName("PK__SousQues__F5B46568AB03F4CF");
+            entity.HasKey(e => e.IdSousQuestion).HasName("PK__SousQues__F5B4656840916F42");
 
             entity.ToTable("SousQuestion");
 
@@ -200,11 +200,11 @@ public partial class EtablissementFrancaisDonOasisContext : DbContext
 
         modelBuilder.Entity<TypeResultat>(entity =>
         {
-            entity.HasKey(e => e.IdTypeResultat).HasName("PK__TypeResu__5A6443E7F53E690C");
+            entity.HasKey(e => e.IdTypeResultat).HasName("PK__TypeResu__5A6443E77E0C9CD2");
 
             entity.ToTable("TypeResultat");
 
-            entity.HasIndex(e => e.Statut, "UQ__TypeResu__A8589223B1A0A831").IsUnique();
+            entity.HasIndex(e => e.Statut, "UQ__TypeResu__A8589223851900CC").IsUnique();
 
             entity.Property(e => e.IdTypeResultat).HasColumnName("idTypeResultat");
             entity.Property(e => e.Statut)

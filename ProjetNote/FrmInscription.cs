@@ -198,10 +198,44 @@ namespace ProjetNote
         {
             DialogResult quitter = MessageBox.Show("Êtes-vous sûr de vouloir quitter l'application ?", "Quitter", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if(quitter == DialogResult.Yes)
+            if (quitter == DialogResult.Yes)
             {
                 application.Close();
             }
+        }
+
+        private void flècheRetourFormPrincipal_Click(object sender, EventArgs e)
+        {
+            //  s'il y a des chemps saisie alors messagebox , sinon retour arrière directement
+            // Vérifier si des champs de saisie sont remplis
+            if (!string.IsNullOrEmpty(TxtNomInscription.Text) ||
+                !string.IsNullOrEmpty(TxtPrenomInscription.Text) ||
+                !string.IsNullOrEmpty(TxtMdpInscription.Text) ||
+                !string.IsNullOrEmpty(TxtConfirmationInscription.Text) ||
+                !string.IsNullOrEmpty(TxtMailInscription.Text))
+            {
+                // Affiche un message d'avertissement
+                DialogResult result = MessageBox.Show("Vous avez des champs de saisie non vides. Êtes-vous sûr de vouloir retourner au formulaire principal?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Retour au formulaire principal sans enregistrer les données
+                    FrmPrincipal formPrincipal = new FrmPrincipal();
+                    formPrincipal.Show();
+                    Close(); // on ferme le form inscription
+                }
+            }
+            else
+            {
+                // Aucun champ de saisie n'est rempli, retour au formulaire principal
+                FrmPrincipal formPrincipal = new FrmPrincipal();
+                formPrincipal.Show();
+                Close(); // on ferme le form inscription
+            }
+
+
+
+
         }
     }
 }

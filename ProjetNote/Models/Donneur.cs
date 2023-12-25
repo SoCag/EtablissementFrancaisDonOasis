@@ -17,11 +17,13 @@ public partial class Donneur
 
     public DateOnly DateDeNaissance { get; set; }
 
-    public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
-
-    public string NomComplet => $"{Nom} {Prenom}";
-    public override string ToString()
+    public string NomComplet
     {
-        return Nom + " " + Prenom;
+        get
+        {
+            return Nom + " " + Prenom;
+        }
     }
+
+    public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
 }

@@ -134,5 +134,25 @@ namespace ProjetNote
             // Masque à nouveau le texte lorsque la souris quitte l'icône
             TxtMDPMedecin.PasswordChar = '*';
         }
+
+        private void labelInscription_Click(object sender, EventArgs e)
+        {
+            // Affiche le formulaire d'inscription
+            FrmInscription formInscription = new FrmInscription(this);
+            formInscription.Show();
+
+            // Cache le formulaire principal
+            this.Hide();
+        }
+
+        private void labelIci_Click(object sender, EventArgs e)
+        {
+            // Affiche le formulaire d'inscription
+            FrmInscription formInscription = new FrmInscription(this);
+            formInscription.Show();
+
+            // Cache le formulaire principal
+            this.Hide();
+        }
     }
 }
