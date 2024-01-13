@@ -15,15 +15,9 @@ public partial class Donneur
 
     public string Prenom { get; set; } = null!;
 
-    public DateOnly DateDeNaissance { get; set; }
+    public string NomComplet { get { return Nom + " " + Prenom; } }
 
-    public string NomComplet
-    {
-        get
-        {
-            return Nom + " " + Prenom;
-        }
-    }
+    public DateOnly DateDeNaissance { get; set; }
 
     public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
 }

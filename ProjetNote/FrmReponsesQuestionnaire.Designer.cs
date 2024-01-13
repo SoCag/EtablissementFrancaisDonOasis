@@ -44,6 +44,7 @@
             label7 = new Label();
             label8 = new Label();
             label9 = new Label();
+            checkAccord = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGVDonneur).BeginInit();
             SuspendLayout();
             // 
@@ -219,12 +220,26 @@
             label9.TabIndex = 14;
             label9.Text = "QUESTIONNAIRE";
             // 
+            // checkAccord
+            // 
+            checkAccord.AutoSize = true;
+            checkAccord.Enabled = false;
+            checkAccord.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkAccord.ForeColor = Color.MidnightBlue;
+            checkAccord.Location = new Point(12, 324);
+            checkAccord.Name = "checkAccord";
+            checkAccord.Size = new Size(204, 22);
+            checkAccord.TabIndex = 15;
+            checkAccord.Text = "Accord pour usage externe";
+            checkAccord.UseVisualStyleBackColor = true;
+            // 
             // FrmReponsesQuestionnaire
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightBlue;
             ClientSize = new Size(1544, 461);
+            Controls.Add(checkAccord);
             Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(labelResultat);
@@ -269,5 +284,6 @@
         private Label label7;
         private Label label8;
         private Label label9;
+        private CheckBox checkAccord;
     }
 }

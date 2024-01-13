@@ -273,7 +273,7 @@ namespace ProjetNote
             labelOrdreQuestion.Text = questionEnCours.Ordre.ToString();
 
             // On met à jour la catégorie
-            labelCategorie.Text = categorie.ToString();
+            labelCategorie.Text = categorie.Categorie1;
 
             // On met à jour la question
             labelQuestion.Text = questionEnCours.Enonce;
