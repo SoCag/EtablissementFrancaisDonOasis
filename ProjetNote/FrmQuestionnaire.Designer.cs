@@ -50,9 +50,9 @@
             labelQN.BackColor = Color.Transparent;
             labelQN.Font = new Font("Microsoft Sans Serif", 13.7999992F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelQN.ForeColor = Color.RoyalBlue;
-            labelQN.Location = new Point(148, 9);
+            labelQN.Location = new Point(169, 12);
             labelQN.Name = "labelQN";
-            labelQN.Size = new Size(119, 24);
+            labelQN.Size = new Size(148, 29);
             labelQN.TabIndex = 0;
             labelQN.Text = "Question n°";
             // 
@@ -62,9 +62,9 @@
             labelOrdreQuestion.BackColor = Color.Transparent;
             labelOrdreQuestion.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelOrdreQuestion.ForeColor = Color.RoyalBlue;
-            labelOrdreQuestion.Location = new Point(273, 9);
+            labelOrdreQuestion.Location = new Point(312, 12);
             labelOrdreQuestion.Name = "labelOrdreQuestion";
-            labelOrdreQuestion.Size = new Size(21, 24);
+            labelOrdreQuestion.Size = new Size(27, 29);
             labelOrdreQuestion.TabIndex = 1;
             labelOrdreQuestion.Text = "1";
             // 
@@ -74,9 +74,10 @@
             buttonSuivant.Cursor = Cursors.Hand;
             buttonSuivant.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonSuivant.ForeColor = Color.White;
-            buttonSuivant.Location = new Point(273, 421);
+            buttonSuivant.Location = new Point(312, 561);
+            buttonSuivant.Margin = new Padding(3, 4, 3, 4);
             buttonSuivant.Name = "buttonSuivant";
-            buttonSuivant.Size = new Size(116, 44);
+            buttonSuivant.Size = new Size(133, 59);
             buttonSuivant.TabIndex = 2;
             buttonSuivant.Text = "Suivant";
             buttonSuivant.UseVisualStyleBackColor = false;
@@ -89,9 +90,10 @@
             buttonPrecedent.Enabled = false;
             buttonPrecedent.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonPrecedent.ForeColor = Color.White;
-            buttonPrecedent.Location = new Point(131, 421);
+            buttonPrecedent.Location = new Point(150, 561);
+            buttonPrecedent.Margin = new Padding(3, 4, 3, 4);
             buttonPrecedent.Name = "buttonPrecedent";
-            buttonPrecedent.Size = new Size(116, 44);
+            buttonPrecedent.Size = new Size(133, 59);
             buttonPrecedent.TabIndex = 3;
             buttonPrecedent.Text = "Précédent";
             buttonPrecedent.UseVisualStyleBackColor = false;
@@ -104,11 +106,11 @@
             labelQuestion.BackColor = Color.Transparent;
             labelQuestion.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelQuestion.ForeColor = Color.RoyalBlue;
-            labelQuestion.Location = new Point(56, 111);
-            labelQuestion.MaximumSize = new Size(390, 80);
-            labelQuestion.MinimumSize = new Size(390, 80);
+            labelQuestion.Location = new Point(64, 148);
+            labelQuestion.MaximumSize = new Size(446, 107);
+            labelQuestion.MinimumSize = new Size(446, 107);
             labelQuestion.Name = "labelQuestion";
-            labelQuestion.Size = new Size(390, 80);
+            labelQuestion.Size = new Size(446, 107);
             labelQuestion.TabIndex = 4;
             labelQuestion.Text = "Question";
             labelQuestion.TextAlign = ContentAlignment.MiddleCenter;
@@ -119,11 +121,11 @@
             labelSousQuestion.BackColor = Color.Transparent;
             labelSousQuestion.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelSousQuestion.ForeColor = Color.RoyalBlue;
-            labelSousQuestion.Location = new Point(56, 209);
-            labelSousQuestion.MaximumSize = new Size(390, 80);
-            labelSousQuestion.MinimumSize = new Size(390, 80);
+            labelSousQuestion.Location = new Point(64, 279);
+            labelSousQuestion.MaximumSize = new Size(446, 107);
+            labelSousQuestion.MinimumSize = new Size(446, 107);
             labelSousQuestion.Name = "labelSousQuestion";
-            labelSousQuestion.Size = new Size(390, 80);
+            labelSousQuestion.Size = new Size(446, 107);
             labelSousQuestion.TabIndex = 5;
             labelSousQuestion.Text = "Sous-question";
             labelSousQuestion.TextAlign = ContentAlignment.MiddleCenter;
@@ -134,9 +136,9 @@
             labelOrdreSousQuestion.BackColor = Color.Transparent;
             labelOrdreSousQuestion.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelOrdreSousQuestion.ForeColor = Color.RoyalBlue;
-            labelOrdreSousQuestion.Location = new Point(300, 9);
+            labelOrdreSousQuestion.Location = new Point(343, 12);
             labelOrdreSousQuestion.Name = "labelOrdreSousQuestion";
-            labelOrdreSousQuestion.Size = new Size(24, 24);
+            labelOrdreSousQuestion.Size = new Size(29, 29);
             labelOrdreSousQuestion.TabIndex = 9;
             labelOrdreSousQuestion.Text = "A";
             // 
@@ -146,11 +148,11 @@
             labelCategorie.BackColor = Color.Transparent;
             labelCategorie.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCategorie.ForeColor = Color.RoyalBlue;
-            labelCategorie.Location = new Point(56, 45);
-            labelCategorie.MaximumSize = new Size(390, 50);
-            labelCategorie.MinimumSize = new Size(390, 50);
+            labelCategorie.Location = new Point(64, 60);
+            labelCategorie.MaximumSize = new Size(446, 67);
+            labelCategorie.MinimumSize = new Size(446, 67);
             labelCategorie.Name = "labelCategorie";
-            labelCategorie.Size = new Size(390, 50);
+            labelCategorie.Size = new Size(446, 67);
             labelCategorie.TabIndex = 10;
             labelCategorie.Text = "Catégorie";
             labelCategorie.TextAlign = ContentAlignment.MiddleCenter;
@@ -161,9 +163,10 @@
             radioOui.BackColor = Color.Transparent;
             radioOui.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioOui.ForeColor = Color.RoyalBlue;
-            radioOui.Location = new Point(56, 292);
+            radioOui.Location = new Point(64, 389);
+            radioOui.Margin = new Padding(3, 4, 3, 4);
             radioOui.Name = "radioOui";
-            radioOui.Size = new Size(51, 21);
+            radioOui.Size = new Size(59, 24);
             radioOui.TabIndex = 11;
             radioOui.TabStop = true;
             radioOui.Text = "Oui";
@@ -176,9 +179,10 @@
             radioNon.BackColor = Color.Transparent;
             radioNon.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioNon.ForeColor = Color.RoyalBlue;
-            radioNon.Location = new Point(391, 292);
+            radioNon.Location = new Point(447, 389);
+            radioNon.Margin = new Padding(3, 4, 3, 4);
             radioNon.Name = "radioNon";
-            radioNon.Size = new Size(55, 21);
+            radioNon.Size = new Size(63, 24);
             radioNon.TabIndex = 12;
             radioNon.TabStop = true;
             radioNon.Text = "Non";
@@ -190,9 +194,10 @@
             radioSaisPas.BackColor = Color.Transparent;
             radioSaisPas.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioSaisPas.ForeColor = Color.RoyalBlue;
-            radioSaisPas.Location = new Point(194, 292);
+            radioSaisPas.Location = new Point(222, 389);
+            radioSaisPas.Margin = new Padding(3, 4, 3, 4);
             radioSaisPas.Name = "radioSaisPas";
-            radioSaisPas.Size = new Size(131, 21);
+            radioSaisPas.Size = new Size(153, 24);
             radioSaisPas.TabIndex = 13;
             radioSaisPas.TabStop = true;
             radioSaisPas.Text = "Je ne sais pas";
@@ -201,10 +206,11 @@
             // textComplement
             // 
             textComplement.Enabled = false;
-            textComplement.Location = new Point(56, 319);
+            textComplement.Location = new Point(64, 425);
+            textComplement.Margin = new Padding(3, 4, 3, 4);
             textComplement.Multiline = true;
             textComplement.Name = "textComplement";
-            textComplement.Size = new Size(388, 56);
+            textComplement.Size = new Size(443, 73);
             textComplement.TabIndex = 14;
             textComplement.Visible = false;
             // 
@@ -212,9 +218,10 @@
             // 
             button1.BackColor = Color.IndianRed;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(468, 12);
+            button1.Location = new Point(535, 16);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(24, 23);
+            button1.Size = new Size(27, 31);
             button1.TabIndex = 18;
             button1.Text = "X";
             button1.UseVisualStyleBackColor = false;
@@ -222,10 +229,11 @@
             // 
             // FrmQuestionnaire
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(504, 499);
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(574, 655);
             ControlBox = false;
             Controls.Add(button1);
             Controls.Add(textComplement);
@@ -241,9 +249,10 @@
             Controls.Add(labelOrdreQuestion);
             Controls.Add(labelQN);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(520, 538);
-            MinimumSize = new Size(520, 538);
+            MaximumSize = new Size(592, 702);
+            MinimumSize = new Size(592, 702);
             Name = "FrmQuestionnaire";
             Text = "Questionnaire";
             ResumeLayout(false);
