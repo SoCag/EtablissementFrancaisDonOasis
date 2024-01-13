@@ -194,7 +194,7 @@ namespace ProjetNote
             TxtConfirmationInscription.PasswordChar = '\0';
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonQuitter_Click(object sender, EventArgs e)
         {
             DialogResult quitter = MessageBox.Show("Êtes-vous sûr de vouloir quitter l'application ?", "Quitter", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -204,9 +204,8 @@ namespace ProjetNote
             }
         }
 
-        private void flècheRetourFormPrincipal_Click(object sender, EventArgs e)
+        private void buttonRetour_Click(object sender, EventArgs e)
         {
-            //  s'il y a des chemps saisie alors messagebox , sinon retour arrière directement
             // Vérifier si des champs de saisie sont remplis
             if (!string.IsNullOrEmpty(TxtNomInscription.Text) ||
                 !string.IsNullOrEmpty(TxtPrenomInscription.Text) ||
@@ -215,27 +214,20 @@ namespace ProjetNote
                 !string.IsNullOrEmpty(TxtMailInscription.Text))
             {
                 // Affiche un message d'avertissement
-                DialogResult result = MessageBox.Show("Vous avez des champs de saisie non vides. Êtes-vous sûr de vouloir retourner au formulaire principal?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Attention, votre saisie sera perdue si vous retournez au formulaire précédent. Êtes-vous sûr de vouloir continuer ?", "Attention", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
-                    // Retour au formulaire principal sans enregistrer les données
-                    FrmPrincipal formPrincipal = new FrmPrincipal();
-                    formPrincipal.Show();
-                    Close(); // on ferme le form inscription
+                    application.Show();
+                    Close();
                 }
             }
             else
             {
-                // Aucun champ de saisie n'est rempli, retour au formulaire principal
                 FrmPrincipal formPrincipal = new FrmPrincipal();
-                formPrincipal.Show();
-                Close(); // on ferme le form inscription
+                application.Show();
+                Close();
             }
-
-
-
-
         }
     }
 }

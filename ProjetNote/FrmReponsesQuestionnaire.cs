@@ -28,28 +28,32 @@ namespace ProjetNote
             DataGridViewTextBoxColumn Question = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Question",
-                Name = "Question"
+                Name = "Question",
+                ReadOnly = true
             };
             dataGVDonneur.Columns.Add(Question);
 
             DataGridViewTextBoxColumn Reponse = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Réponse",
-                Name = "Reponse"
+                Name = "Reponse",
+                ReadOnly = true
             };
             dataGVDonneur.Columns.Add(Reponse);
 
             DataGridViewTextBoxColumn Complement = new DataGridViewTextBoxColumn
             {
                 HeaderText = "Complément",
-                Name = "Complement"
+                Name = "Complement",
+                ReadOnly = true
             };
             dataGVDonneur.Columns.Add(Complement);
 
             DataGridViewCheckBoxColumn rendImpossible = new DataGridViewCheckBoxColumn
             {
                 HeaderText = "Rend impossible",
-                Name = "RendImpossible"
+                Name = "RendImpossible",
+                ReadOnly = true
             };
             dataGVDonneur.Columns.Add(rendImpossible);
 
@@ -110,6 +114,7 @@ namespace ProjetNote
             labelAdresseMail.Text = donneurEnCours.AdresseEmail;
             labelDateQuestionnaire.Text = questionnaireEnCours.DateQuestionnaire.ToShortDateString();
             labelResultat.Text = resultatQuestionnaire.Statut;
+            checkAccord.Checked = questionnaireEnCours.AccordPartage;
         }
     }
 }
